@@ -66,12 +66,14 @@ In this case, `#keyPath(firstName)` is understood to represent `#keyPath(Person.
 As Foundation types are not strongly-typed, the key-path expression should only accept traversing `SequenceType` conforming types:
 
 ```swift
-let swiftArray = ["Chris", "Joe", "Douglas"]
-let nsArray = NSArray(array: swiftArray)
-swiftArray.valueForKeyPath(#keyPath(swiftArray.count)) // => 3
-swiftArray.valueForKeyPath(#keyPath(swiftArray.uppercased)) // => ["CHRIS", "JOE", "DOUGLAS"]
-swiftArray.valueForKeyPath(#keyPath(nsArray.count)) // => 3
-swiftArray.valueForKeyPath(#keyPath(nsArray.uppercaseString)) // compiler error
+//DOES NOT COMPILE - xcode 8 beta4
+//let swiftArray = ["Chris", "Joe", "Douglas"]
+//let nsArray = NSArray(array: swiftArray)
+//swiftArray.valueForKeyPath(#keyPath(swiftArray.count)) // => 3
+//swiftArray.valueForKeyPath(#keyPath(swiftArray.uppercased)) // => ["CHRIS", "JOE", "DOUGLAS"]
+//swiftArray.valueForKeyPath(#keyPath(nsArray.count)) // => 3
+//swiftArray.valueForKeyPath(#keyPath(nsArray.uppercaseString)) // compiler error
+//DOES NOT COMPILE
 ```
 There is some implicit bridging going on here that could use some detailed design. If I refer to `Person.lastName.uppercased`, that's a method on the value type `String`. At runtime, we're depending on getting the `uppercaseString` method on `NSString`. This may be as simple as saying that we follow the `_ObjectiveCBridgeable` conformance for any value type encountered along the way.
 
