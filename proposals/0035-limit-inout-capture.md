@@ -2,8 +2,11 @@
 
 * Proposal: [SE-0035](https://github.com/apple/swift-evolution/blob/master/proposals/0035-limit-inout-capture.md)
 * Author: [Joe Groff](https://github.com/jckarter)
-* Status: **Accepted** ([Rationale](https://lists.swift.org/pipermail/swift-evolution-announce/2016-February/000046.html), [Bug](https://bugs.swift.org/browse/SR-807))
-* Review manager: [Chris Lattner](https://github.com/lattner)
+* Review Manager: [Chris Lattner](https://github.com/lattner)
+* Status: **Accepted**
+* Decision Notes: [Rationale](https://lists.swift.org/pipermail/swift-evolution-announce/2016-February/000046.html)
+* Bugs: [SR-807](https://bugs.swift.org/browse/SR-807)
+
 
 ## Introduction
 
@@ -49,9 +52,9 @@ func captureAndEscape(inout x: Int) -> () -> Void {
 
 var x = 22
 let closure = captureAndEscape(&x)
-print(x) // => 23
+print(x) // => 22
 closure()
-print("still \(x)") // => still 23
+print("still \(x)") // => still 22
 ```
 
 This change has been a persistent source of confusion and bug reports, and was recently
